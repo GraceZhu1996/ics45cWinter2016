@@ -1,0 +1,47 @@
+/*Write a program that counts the frequency of occurrence of each word in the sample_doc.txt  input file while excluding certain common words. It should print the words and their frequencies to a file named frequency.txt.
+   (30 points) Store each word in a map. The key is the word and the value is the count of the number of times the word appears in the input text. There are no punctuations added in the input file, so you don’t have to worry about removing them.
+   (30 points) Define a word exclusion set containing words in a file stopwords.txt use this stopwords file. Before entering a word in the map, make sure it is not present in the exclusion set. Display the list of counted words and their associated count when reading of the input file is complete.*/
+#include <map>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <iterator>
+#include <set>
+using namespace std;
+
+int main(){
+        map <string, int> myMap;
+		set <string> mySet;
+        ifstream in_sample("sample_doc.txt");
+		ifstream in_stop("stopwords.txt");
+		for_each( istream_iterator<string>(in_stop),
+				  istream_iterator<string>(),
+				  [&](string s1) { mySet.insert(s1);});
+		//transform(mySet.begin(),mySet.end(), mySet.begin(), ::tolower);
+		// for (auto E: mySet)
+		// 	cout << E << endl;
+		// cout << endl;
+		for_each( istream_iterator<string>(in_sample),
+				  istream_iterator<string>(),
+				  [&](string s2) {
+					  if( mySet.find(s2)== mySet.end() )
+					  {
+						  myMap[s2] += 1;
+					  }
+				  });
+		ofstream freq;
+		freq.open("frequency.txt");
+		for (auto  E: myMap)
+		{
+			cout << E.first << ": " << E.second << endl;
+			freq << E.first << ": " << E.second << endl;
+		}
+		cout << endl;
+		freq.close();
+		
+		
+		
+		return 0;
+
+}

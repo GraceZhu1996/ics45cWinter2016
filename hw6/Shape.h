@@ -1,0 +1,26 @@
+
+/*(20 points) Define an abstract base class, called Shape, with two pure virtual function ( area() and draw() ).  Be sure this class has a constructor and at least three data members (i.e., centerX, centerY, size).*/
+#ifndef SHAPE_H
+#define SHAPE_H
+#include <iostream>
+using namespace std;
+class Shape
+{
+		
+public:
+	Shape(double newCenterX = 0, double newCenterY = 0, double newSize = 0){
+		centerX = newCenterX;
+		centerY = newCenterY;
+		size = newSize;
+	}
+	
+	virtual double area() = 0;
+	virtual void draw() = 0;
+	virtual ~Shape(){};
+protected:
+	double centerX;
+	double centerY;
+	double size;
+
+};
+#endif

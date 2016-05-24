@@ -1,0 +1,244 @@
+#include "String.h"
+
+int String::allocations = 0;
+String::String(const char * s)
+{
+	buf = strdup(s);
+}
+
+String::String(const String & s)
+{
+	buf = strdup(s.buf);
+}
+
+String String::operator =(const String & s)
+{
+	delete_char_array(buf);
+	buf = strdup(s.buf);
+	return *this;
+}
+
+char & String::operator [](int index)
+{
+	if(inBounds(index)){
+		return  buf[index];
+	}
+	else{
+		cout <<"out of bounds";
+		return (char&)"\0";
+	}
+}
+
+int String::size()
+{
+	return strlen(buf);
+}
+
+String String::reverse()
+{
+	int n,m;
+	char * ptr =new_char_array(strlen(buf));
+	for (n = strlen(buf)-1, m = 0; n>=0 && inBounds(n); n--, m++)
+		ptr[m] = buf[n];
+	String s(ptr);
+	delete_char_array(ptr);
+	return s;
+}
+
+int String::indexOf(const char c)
+{
+	for (int n = 0; n < strlen(buf); n++)
+		if (buf[n] == c){
+			return n;
+		}
+	cout << "char c " << c << " not found"<< endl;
+	return -1;
+}
+
+int String::indexOf(const String pattern)
+{
+	for (int n = 0, m = 0; inBounds(n); n++)
+		if (buf[n]==pattern.buf[m]){
+			for (++n, m=1; m<strlen(pattern.buf)&& inBounds(n); m++, n++){
+				//cout << buf[n] << " " << pattern.buf[m]<<endl;
+				if(buf[n] != pattern.buf[m])
+					break;
+			}
+			if(pattern.buf[m] == '\0')
+				return n-m;
+			else (m = 0);
+		}
+	return '\0';
+}
+
+bool String::operator ==(const String s)
+{
+	if (strcmp(buf, s.buf) == 0)
+		return true;
+	else
+		return false;
+}
+
+bool String::operator !=(const String s)
+{
+	return !operator ==(s);
+}
+
+bool String::operator >(const String s)
+{
+	if (strcmp(buf, s.buf) > 0)
+		return true;
+	else
+		return false;
+}
+
+bool String::operator <(const String s)
+{
+	return ((String)s > * this);
+}
+
+bool String::operator <=(const String s)
+{
+	if (strcmp(buf, s.buf) <= 0)
+		return true;
+	else
+		return false;
+}
+
+bool String::operator >=(const String s)
+{
+	if (strcmp(buf, s.buf) >= 0)
+		return true;
+	else
+		return false;
+}
+
+String String::operator +(const String s)
+{
+	char * ptr = strcat(buf, s.buf);
+	String st(ptr);
+	delete_char_array(ptr);
+	return st;
+}
+
+String String::operator +=(const String s)
+{
+	*this = *this + s;
+	return *this;
+}
+void String::final_report_on_allocations()
+{
+      if (allocations > 0)
+		  error((char*)"Memory Leak in class String");
+      if (allocations < 0)
+		  error((char*)"Too many delete[]s in class String");
+      if (allocations == 0)
+          cout <<"Allocations & deallocations match!! Yay!!!\n";
+}
+int String::allocations_count()
+{
+	return allocations;
+}
+void String::print(ostream & out)
+{
+	for (int n = 0; n < strlen(buf); n++)
+		out << buf[n];
+}
+
+void String::read(istream & in)
+{
+	char * ptr = new_char_array(100000);
+	in.getline(ptr, 100000);
+	delete_char_array(buf);
+	buf = strdup(ptr);
+
+}
+
+String::~String()
+{
+	delete_char_array(buf);
+}
+
+int String::strlen(const char * src)
+{
+	int n = 0;
+	for (; src[n]!='\0'; n++)
+		;
+	return n;
+}
+
+char * String::strdup(const char * src)
+{
+	return strcpy(new_char_array(strlen(src)), src);
+}
+
+char * String::strcpy(char *dest, const char *src)
+{
+	int n;
+	for (n = 0; n < strlen(src) && src[n] != '\0'; n++)
+		dest[n] = src[n];
+	dest[n] = '\0';
+	return dest;
+ }
+char * String::strcat(char *dest, const char *src)
+{
+	//char*ptr= new char[strlen(dest)+strlen(src)-1];
+	char *ptr = new_char_array(strlen(dest)+strlen(src)-1);
+	for (int n = 0; n <strlen(dest); n++)
+		ptr[n] = dest[n];
+	int n = strlen(src)-1;
+	for (int m = 0; m < strlen(src); n++, m++)
+		ptr[n] = src[m];
+	ptr[n] = '\0';
+	return ptr;
+}
+int String::strcmp(const char *left, const char*right)
+{
+	int n = 0;
+	for (; n <= strlen(left) && n <= strlen(right); n++ ){
+		if (left[n] != right[n])
+			return left[n] - right[n];
+	}
+	return left[n-1] - right[n-1];
+
+}
+// char * String::strchr( const char *str, int c)
+// {
+// 	for (int n = 0; n < strlen(str); n++){
+// 		if (str[n] == c){
+// 			char * ptr = new char[ str[n]];
+// 			return ptr;
+// 		}
+// 	}
+// 	cout << "Can't find character c in char * str" << endl;
+// 	return (char*)'\0';
+// }
+
+ostream & operator << (ostream & out, String str)
+{
+	str.print(out);
+	return out;
+
+}
+istream & operator >> (istream & in, String & str)
+{
+	str.read(in);
+	return in;
+}
+
+char * String::new_char_array( int n_bytes )
+    {
+      ++allocations;
+      return new char[n_bytes];
+    }
+void String::delete_char_array( char * p )
+    {
+      --allocations;
+      if (allocations < 0)
+		  error((char*)"something really wrong");
+      delete [] p;
+    }
+void String::error( char * p )
+    {
+      cerr << "Error (class String): " << p << endl;
+    }

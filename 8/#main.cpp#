@@ -1,0 +1,55 @@
+/*
+ * main.cpp
+ *
+ *  Created on: Mar 2, 2016
+ *      Author: kezijia
+ */
+
+#include <iostream>
+#include <algorithm>
+#include <iterator>
+#include <fstream>
+
+#include "SetList.h"
+#include "MapArray.h"
+using namespace std;
+
+int main()
+{
+	ifstream in1("sample_doc.txt");
+	ifstream in2("stopwords.txt");
+	ofstream out("frequency.txt");
+	MapArray<string, int> M;
+	SetList<string> S;
+
+	// put stop words into the set S
+	for_each( istream_iterator<string>(in2),
+			istream_iterator<string>(),
+			[&](string str1){ S.insert(str1); } );
+	cout << "***Set of the exclusion words***" << endl;
+	for( auto E : S )
+		cout << E << endl;
+	cout << endl;
+
+	// put legal words into map M
+	for_each( istream_iterator<string>(in1),
+			istream_iterator<string>(),
+			[&](string str2)
+			{
+				string str3(str2);
+ 				transform(str2.begin(), str2.end(), str3.begin(), ::tolower);
+				auto search1 = S.find(str3);
+				if( search1 == S.end() )
+					M[str2]++;
+			});
+
+		cout << "***Map of the legal words*** " << endl;
+		for( auto E : M )
+		{
+			out << E.first << " : " << E.second << endl;
+			cout << E.first << " : " << E.second << endl;
+		}
+		cout << endl;
+		out.close();
+	return 0;
+}

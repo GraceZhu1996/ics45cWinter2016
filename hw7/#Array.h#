@@ -1,0 +1,93 @@
+#ifndef ARRAY_H
+#define ARRAY_H
+#include <iostream>
+#include <iomanip>
+#include "IndexOutOfBoundsException.h"
+//using namespace std;
+template
+< typename T>
+class Array{
+	private:
+    int len;
+    T * buf;
+
+public:
+    Array(int newLen):len( newLen ), buf(new T[newLen]){}
+
+    Array ( const Array& l): len( l.len ),buf(new T[l.len])
+		{
+
+			for ( int i = 0; i < l.len; i++ )
+				*(buf) = *(l.buf    0    0    0    0    0
+    0    1    2    3    4
+    0    2    4    6    8
+    0    3    6    9   12
+    0    4    8   12   16
+    0    5   10   15   20
+    0    6   12   18   24
+    0    7   14   21   28
+    0    8   16   24   32
+    0    9   18   27   36
+
+start to test exceptions for int matrix
+try m[11][0] (matrix row out of bounds)
+col 0 or row 11 out of bounds
+try m[9][6] (inner array out of bounds)
+col 6 or row 9 out of bounds
+try m[11][6] (both matrix row and inner array out of bounds)
+col 6 or row 11 out of bounds
+ 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+ 0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00
+ 0.00 2.00 4.00 6.00 8.0010.0012.0014.0016.0018.00
+ 0.00 3.00 6.00 9.0012.0015.0018.0021.0024.0027.00
+ 0.00 4.00 8.0012.0016.0020.0024.0028.0032.0036.00
+ 0.00 5.0010.0015.0020.0025.0030.0035.0040.0045.00
+ 0.00 6.0012.0018.0024.0030.0036.0042.0048.0054.00
+ 0.00 7.0014.0021.0028.0035.0042.0049.0056.0063.00
+start to test exceptions for double matrix
+try m[11][0] (matrix row out of bounds)
+col 0 or row 11 out of bounds
+try m[7][11] (inner array out of bounds)
+col 11 or row 7 out of bounds
+try m[11][11] (both matrix row and inner array out of bounds)
+col 11 or row 11 out of bounds
+);
+		}
+
+	int length()
+		{
+			return len;
+		}
+	T & operator [] ( int i )
+		throw (IndexOutOfBoundsException)
+		{
+			if (!(0 <= i && i < len))
+			{
+				throw (IndexOutOfBoundsException());
+			}
+			return buf[i];
+		}
+
+	void print( std::ostream & out )
+		{
+			for (int i = 0; i < len; i++)
+			    out << std::setw(5) << std::setprecision(2) << std::fixed << buf[i];
+		}
+	friend std::ostream & operator << ( std::ostream & out, Array & a )
+		{
+			a.print(out);
+			return out;
+		}
+
+	friend std::ostream & operator << ( std::ostream & out, Array * ap )
+		{
+			ap->print(out);
+			return out;
+		}
+  // note the overloading of operator << on a pointer as well
+	~Array()
+		{
+			delete[] buf;
+		}
+};
+#endif

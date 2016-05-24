@@ -1,0 +1,9 @@
+I started with 5 quarters, 3 dimes, 6 nickels, 8 pennies  in my pocket
+I started with 50 quarters, 50 dimes, 50 nickels, 50 pennies  in my piggyBank
+I bought a bag of chips for 68 cents using 0 quarters, 3 dimes, 6 nickels, 8 pennies 
+ I have 5 quarters, 0 dimes, 0 nickels, 0 pennies  left in my pocket
+I transfer 0 quarters, 50 dimes, 4 nickels, 0 pennies  to pocket
+I have 5 quarters, 50 dimes, 4 nickels, 0 pennies  in my pocket
+I have 50 quarters, 0 dimes, 46 nickels, 50 pennies  in my piggyBank
+I found 3 quarters, 2 dimes, 4 nickels, 0 pennies  while vacuuming and put it in my piggy Bank
+I have 53 quarters, 2 dimes, 50 nickels, 50 pennies  in my piggyBank

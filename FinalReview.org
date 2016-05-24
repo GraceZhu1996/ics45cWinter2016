@@ -1,0 +1,139 @@
+#+final review
+* [10%]
+- [X] week1
+- [ ] week2
+- [ ] week3
+- [ ] week4
+- [ ] week5
+- [ ] week6
+- [ ] week7
+- [ ] week8
+- [ ] week9
+- [ ] week10
+
+
+* week 1. 
+
+
+** #include brings in declarations
+   - cin >>; cout <<; 
+   - iostream defines >> and << for all primitive data types
+** class - two parts
+   - interface: public
+   - implementation: internal, private
+** object life time
+   1. born: *allocation then construction*
+   2. live and interact with other objects
+   3. die. *destruction then deallocation*
+*** scope :: visibility/accessibility
+    {
+      Circle c( 0, 0, 1 );
+    // Circle c is  in scope
+      {
+      int c = 0; // Circle c is  hidden by int c
+    // int c is  in scope
+      }
+    _// Circle c is back  in scope_
+    // int c is  out of scope
+    }
+    // both the objects named c are  out of scope
+** functions
+   float square( float x )
+   {
+     return x * x;
+   }
+   ---------------------
+   type name (parameterType parameterName)
+   {the statement }
+   
+   - function must be declared before call. 
+
+** main
+   int main()  int is the exit status
+   return 0 means program terminated ok
+   
+** about intergral types and floating point types
+   3 ways to define value
+   int i = 3.4 (convert to 3)
+   int i{3.4} raise error: floating-point to integer conversion
+   int i = {3.4} same error. =is redundant
+
+** const
+   const int dmv = 17 //it means value of dmv will not change 
+   double sum(const vector<double>&);  sum will not modify its arguments
+   const double s1 = sum(v); //OK evaluated at run time (v is a vector) 
+   
+* week 2
+
+** a class
+#include "Complex.h"
+int main()
+{
+  Complex c1( 1.5, 5.3); /// c1 is born
+  Complex c2( 2.5, 2.7 ); /// c2 is born
+  c1.print( cout );
+  c2.print( cout );
+  {
+    Complex result; ///construct a conplex object with default value
+    result.print( cout );
+    result = c1.add( c2 );  /// will call add function in Complex Class
+    result.print( cout );
+  } /// and here???
+  c1 = Complex( 2.0, 3.0 ); /// a literal Complex number
+  c1.print( cout );
+  return 0;
+} /// c1, c2 destruct and deallocation 
+
+** how to define member functions
+Complex :: Complex( float newRe, float newIm )
+  : re( newRe ), im( newIm )
+{
+}
+Complex Complex :: add( Complex c )
+{
+  return Complex( re + c.re, im + c.im );
+}
+void Complex :: print( ostream & out )
+{
+  out << "(" << re << "+" << im << "i)";
+}
+…
+
+** switch statement
+   char i = '0'
+   switch(i)
+   {//there is no range for them. case '0'-'9' means subtract '9' from '0'
+     case '0':
+     case '1':
+     case '2':
+       return true;
+     default:
+       return false;
+   }
+
+
+
+
+
+char v[6] //array of 6 characters
+
+* week 3
+
+
+* week 4
+
+* week 5
+
+* week 6
+
+
+* week 7
+
+
+* week 8
+
+
+* week 9
+
+
+

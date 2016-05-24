@@ -1,0 +1,40 @@
+
+
+#ifndef SQUARE_H
+#define SQUARE_H
+#include "Shape.h"
+class Square: public Shape
+{
+public:
+	Square(double newSide= 0):Shape(newSide/2, newSide/2)
+	{
+		side = newSide;
+		
+	}
+
+	virtual double area()
+		{
+			return side*side;
+		}
+
+	virtual void draw()
+		{
+			for (int col = 0; col<side; col++)
+				cout << "* ";
+			cout << "\n";
+			for (int row = 2; row < side; row++)
+			{
+				cout <<"*";
+				for (int col = 1; col < (side-1)*2; col++)
+					cout << " ";
+				cout << "*\n";
+			}
+			for (int col = 0; col<side; col++)
+				cout << "* ";
+			cout << endl;
+		}
+
+private:
+	double side;
+};
+#endif

@@ -1,0 +1,82 @@
+#+ final review
+* [0/10]
+- [ ] week1
+- [ ] week2
+- [ ] week3
+- [ ] week4
+- [ ] week5
+- [ ] week6
+- [ ] week7
+- [ ] week8
+- [ ] week9
+- [ ] week10
+
+
+* week 1. 
+
+
+** #include brings in declarations
+   - cin >>; cout <<; 
+   - iostream defines >> and << for all primitive data types
+** class - two parts
+   - interface: public
+   - implementation: internal, private
+** object life time
+   1. born: *allocation then construction*
+   2. live and interact with other objects
+   3. die. *destruction then deallocation*
+*** scope :: visibility/accessibility
+    {
+      Circle c( 0, 0, 1 );
+    // Circle c is  in scope
+      {
+      int c = 0; // Circle c is  hidden by int c
+    // int c is  in scope
+      }
+    _// Circle c is back  in scope_
+    // int c is  out of scope
+    }
+    // both the objects named c are  out of scope
+** functions
+   float square( float x )
+   {
+     return x * x;
+   }
+   ---------------------
+   type name (parameterType parameterName)
+   {the statement }
+   
+   - function must be declared before call. 
+
+** main
+   int main()  int is the exit status
+   return 0 means program terminated ok
+   
+** about intergral types and floating point types
+   3 ways to define value
+   int i = 3.4 (convert to 3)
+   int i{3.4} raise error: floating-point to integer conversion
+   int i = {3.4} same error. =is redundant
+* week 2
+
+
+* week 3
+
+
+* week 4
+
+* week 5
+
+* week 6
+
+
+* week 7
+
+
+* week 8
+
+
+* week 9
+
+
+
